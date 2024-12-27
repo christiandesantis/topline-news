@@ -1,0 +1,21 @@
+import react from "@vitejs/plugin-react";
+import laravel from "laravel-vite-plugin";
+import { defineConfig } from "vite";
+
+export default defineConfig({
+    plugins: [
+        laravel({
+            input: "resources/js/app.tsx",
+            ssr: "resources/js/ssr.tsx",
+            refresh: true,
+        }),
+        react(),
+    ],
+    server: {
+        host: "0.0.0.0", // Allow access from network
+        port: 5173, // Ensure this matches the port you are using
+        hmr: {
+            host: "localserver", // Replace with your network address
+        },
+    },
+});
