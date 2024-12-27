@@ -4,7 +4,7 @@ namespace App\Models;
 
 class Category
 {
-    public const CATEGORIES = [
+    protected const CATEGORIES = [
         'general',
         'business',
         'entertainment',
