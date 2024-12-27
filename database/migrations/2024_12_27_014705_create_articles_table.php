@@ -17,8 +17,8 @@ return new class extends Migration
             $table->string('category');
             $table->string('author');
             $table->string('title');
-            $table->string('description')->nullable();
-            $table->string('content')->nullable();
+            $table->text('description')->nullable();
+            $table->text('content')->nullable();
             $table->string('url');
             $table->string('urlToImage')->nullable();
             $table->date('publishedAt');
