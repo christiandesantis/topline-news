@@ -67,4 +67,10 @@ class DataSource
 
         return ['rowsAffected' => $rowsAffected];
     }
+
+    protected function mapSourceId(string $uid): ?int
+    {
+        $source = Source::where('uid', $uid)->first();
+        return $source ? $source->id : null;
+    }
 }

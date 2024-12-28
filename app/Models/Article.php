@@ -29,7 +29,7 @@ class Article extends Model
      * @param array $articles
      * @throws ValidationException
      */
-    public function validate(array $articles): void
+    public static function validate(array $articles): void
     {
         $validator = Validator::make(['articles' => $articles], [
             'articles.*.title' => 'required|string',
@@ -46,8 +46,8 @@ class Article extends Model
             'articles.*.author' => 'nullable|string',
             'articles.*.description' => 'nullable|string',
             'articles.*.content' => 'nullable|string',
-            'articles.*.url' => 'required|url',
-            'articles.*.urlToImage' => 'nullable|url',
+            'articles.*.url' => 'required|string',
+            'articles.*.urlToImage' => 'nullable|string',
             'articles.*.publishedAt' => 'required|date',
         ]);
 

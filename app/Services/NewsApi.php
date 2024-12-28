@@ -81,7 +81,7 @@ class NewsApi extends DataSource
     public function syncArticlesByCategories(): void
     {
         foreach ($this->categories as $category) {
-            Log::info('Syncing articles for category: ' . $category->name);
+            Log::info('Syncing articles for category: ' . $category);
             $result = $this->syncArticlesByCategory($category);
             Log::info('Rows affected: ' . $result['rowsAffected']);
         }
@@ -186,12 +186,16 @@ class NewsApi extends DataSource
      */
     private function normalizeArticles(array $articles, string $category): array
     {
-        return array_map(function ($article) {
+        return array_map(function ($article) use ($category) {
+            // Map source id to the local source id
+            $source_id = $this->mapSourceId($article['source']['id']);
+            // Skip articles with unknown source id
+            if (is_null($source_id)) return $source_id;
             return [
                 'title' => $article['title'],
-                'source_id' => $article['source']['id'],
+                'source_id' => $source_id,
                 'category' => $category,
-                'author' => $article['author'],
+                'author' => $article['author'] ?? 'Unknown',
                 'description' => $article['description'],
                 'content' => $article['content'],
                 'url' => $article['url'],
