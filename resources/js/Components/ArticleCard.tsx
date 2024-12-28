@@ -47,7 +47,7 @@ const ArticleCard = ({ article, className = "" }: ArticleCardProps) => {
                     {article.category.toUpperCase()}
                 </div>
                 <h5 className="card-title mb-0.5">
-                    {truncateText(article.title, 60)}
+                    {truncateText(article.title, 45)}
                 </h5>
                 <div className="mb-2.5 text-sm text-base-content/60">
                     {formatDate(article.publishedAt)}
