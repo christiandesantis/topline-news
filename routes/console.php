@@ -1,9 +1,12 @@
 <?php
 
+use App\Services\NewsApi;
 use App\Jobs\ScrapeArticles;
 use App\Jobs\ScrapeSources;
 use Illuminate\Support\Facades\Schedule;
 
-Schedule::job(new ScrapeSources)->twiceDaily(0, 12);
+$newsApi = new NewsApi();
 
-Schedule::job(new ScrapeArticles)->cron('0 */8 * * *');
+Schedule::job(new ScrapeSources($newsApi))->twiceDaily(0, 12);
+
+Schedule::job(new ScrapeArticles($newsApi))->cron('0 */8 * * *');
