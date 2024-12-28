@@ -1,3 +1,4 @@
+import "flyonui/flyonui";
 import "../css/app.css";
 import "./bootstrap";
 

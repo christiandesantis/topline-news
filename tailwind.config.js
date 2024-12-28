@@ -2,6 +2,7 @@
 import { addDynamicIconSelectors } from "@iconify/tailwind";
 import forms from "@tailwindcss/forms";
 import flyonui from "flyonui";
+import flyonuiPlugin from "flyonui/plugin";
 import flyonuiThemes from "flyonui/src/theming/themes";
 import defaultTheme from "tailwindcss/defaultTheme";
 
@@ -12,6 +13,7 @@ export default {
         "./storage/framework/views/*.php",
         "./resources/views/**/*.blade.php",
         "./resources/js/**/*.tsx",
+        "./node_modules/flyonui/dist/js/*.js"
     ],
 
     theme: {
@@ -22,7 +24,7 @@ export default {
         },
     },
 
-    plugins: [forms, flyonui, addDynamicIconSelectors()],
+    plugins: [forms, flyonui, flyonuiPlugin, addDynamicIconSelectors()],
     flyonui: {
         themes: [
             {
