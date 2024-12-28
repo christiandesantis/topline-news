@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Foundation\Inspiring;
-use Illuminate\Support\Facades\Artisan;
+use App\Jobs\ScrapeArticles;
+use App\Jobs\ScrapeSources;
+use Illuminate\Support\Facades\Schedule;
 
-Artisan::command('inspire', function () {
-    $this->comment(Inspiring::quote());
-})->purpose('Display an inspiring quote')->hourly();
+Schedule::job(new ScrapeSources)->twiceDaily(0, 12);
+
+Schedule::job(new ScrapeArticles)->cron('0 */8 * * *');
