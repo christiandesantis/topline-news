@@ -1,6 +1,6 @@
 import { Config } from "ziggy-js";
 
-export interface Pagination<T> {
+export interface Paginated<T> {
     current_page: number;
     data: T[];
     first_page_url: string;
