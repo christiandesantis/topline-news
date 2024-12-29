@@ -86,6 +86,46 @@ This will start the Vite development server, and you can now access the applicat
     ./vendor/bin/sail npm run <script>
     ```
 
+## Laravel Production Setup
+
+This project provides a Docker-based setup for deploying a Laravel application in a production environment. It includes separate containers for PHP-FPM and Nginx, ensuring a clean and efficient architecture.
+
+### Project Structure
+
+- **docker/**: Contains Docker configurations for Nginx and PHP-FPM.
+  - **nginx/**: Nginx configuration files.
+    - **Dockerfile**: Defines the Nginx container.
+    - **default.conf**: Nginx server configuration for the Laravel application.
+  - **php/**: PHP-FPM configuration files.
+    - **Dockerfile**: Defines the PHP-FPM container.
+    - **php.ini**: PHP configuration settings for production.
+
+- **docker-compose.prod.yml**: Docker Compose configuration for the production environment, defining services, networks, and volumes.
+
+### Getting Started
+
+To set up the production environment, follow these steps:
+
+1. **Clone the repository**:
+   ```sh
+   git clone https://github.com/your-username/topline-news.git
+   cd topline-news
+   ```
+
+2. **Build and start the containers**:
+   ```sh
+   docker-compose -f docker-compose.prod.yml up -d --build
+   ```
+
+3. **Access the application**:
+   Open your web browser and navigate to `http://localhost` to view the Laravel application.
+
+### Additional Information
+
+- Ensure that you have Docker and Docker Compose installed on your machine.
+- Modify the Nginx and PHP configurations as needed in the respective files under the `docker` directory.
+- For further customization, refer to the Laravel documentation and Docker documentation.
+
 ## License
 
 This project is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
