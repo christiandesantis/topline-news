@@ -25,7 +25,7 @@ const Carousel = ({ children }: { children: ReactNode }) => {
 
     return (
         <div id="autoplay" data-carousel={config} className="relative w-full">
-            <div className="h-90 carousel">
+            <div className="carousel md:h-[22rem]">
                 <div className="carousel-body h-full cursor-grab carousel-dragging:cursor-grabbing carousel-dragging:transition-none">
                     {children}
                 </div>
@@ -51,7 +51,7 @@ const Carousel = ({ children }: { children: ReactNode }) => {
                     <span className="icon-[tabler--chevron-right] size-5 cursor-pointer rtl:rotate-180"></span>
                 </span>
             </button>
-            <div className="carousel-info absolute bottom-1 start-[50%] block inline-flex -translate-x-[50%] justify-center rounded-lg bg-secondary px-4 md:hidden">
+            <div className="carousel-info absolute bottom-1 start-[50%] block inline-flex -translate-x-[50%] justify-center rounded-lg bg-primary px-4 md:hidden dark:bg-secondary">
                 <span className="carousel-info-current me-1">0</span>/
                 <span className="carousel-info-total ms-1">0</span>
             </div>
