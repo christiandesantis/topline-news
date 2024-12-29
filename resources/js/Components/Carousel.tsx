@@ -51,7 +51,7 @@ const Carousel = ({ children }: { children: ReactNode }) => {
                     <span className="icon-[tabler--chevron-right] size-5 cursor-pointer rtl:rotate-180"></span>
                 </span>
             </button>
-            <div className="carousel-info absolute bottom-3 start-[50%] inline-flex -translate-x-[50%] justify-center rounded-lg bg-secondary px-4">
+            <div className="carousel-info absolute bottom-1 start-[50%] block inline-flex -translate-x-[50%] justify-center rounded-lg bg-secondary px-4 md:hidden">
                 <span className="carousel-info-current me-1">0</span>/
                 <span className="carousel-info-total ms-1">0</span>
             </div>

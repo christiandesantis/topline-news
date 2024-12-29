@@ -20,8 +20,6 @@ const ArticleCard = ({ article, className = "" }: ArticleCardProps) => {
             year: "numeric",
             month: "long",
             day: "numeric",
-            hour: "2-digit",
-            minute: "2-digit",
         };
         return new Date(dateString).toLocaleDateString(undefined, options);
     }, []);
@@ -52,11 +50,6 @@ const ArticleCard = ({ article, className = "" }: ArticleCardProps) => {
                 <div className="mb-2.5 text-sm text-base-content/60">
                     {formatDate(article.publishedAt)}
                 </div>
-                {/* {article.description && (
-                    <p className="mb-3">
-                        {truncateText(article.description, 120)}
-                    </p>
-                )} */}
                 <div className="card-actions">
                     <a
                         href={article.url}
