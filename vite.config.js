@@ -12,10 +12,10 @@ export default defineConfig({
         react(),
     ],
     server: {
-        host: "0.0.0.0", // Allow access from network
-        port: 5173, // Ensure this matches the port you are using
+        host: "0.0.0.0",
+        port: 5173,
         hmr: {
-            host: "localserver", // Replace with your network address
+            host: "localserver",
         },
     },
 });
