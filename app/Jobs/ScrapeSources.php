@@ -13,9 +13,7 @@ class ScrapeSources implements ShouldQueue
     /**
      * Create a new job instance.
      */
-    public function __construct(
-        NewsApi $newsApi,
-    ) {}
+    public function __construct(public NewsApi $newsApi) {}
 
     /**
      * Execute the job.
