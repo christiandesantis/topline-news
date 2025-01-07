@@ -12,7 +12,7 @@ class ArticleService
      * @param array $articles
      * @return array
      */
-    protected function saveArticles(array $articles): array
+    public function saveArticles(array $articles): array
     {
         Article::validate($articles);
 

@@ -12,7 +12,7 @@ class SourceService
      * @param array $sources
      * @return array
      */
-    protected function saveSources(array $sources): array
+    public function saveSources(array $sources): array
     {
         Source::validate($sources);
 
@@ -32,7 +32,7 @@ class SourceService
      * @param string $uid
      * @return int|null
      */
-    protected function mapSourceId(string $uid): ?int
+    public function mapSourceId(string $uid): ?int
     {
         $source = Source::where('uid', $uid)->first();
         return $source ? $source->id : null;
