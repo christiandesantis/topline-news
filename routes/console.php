@@ -1,6 +1,6 @@
 <?php
 
-use App\Services\NewsApi;
+use App\Clients\NewsApi;
 use App\Jobs\ScrapeArticles;
 use App\Jobs\ScrapeSources;
 use Illuminate\Support\Facades\Schedule;

@@ -1,9 +1,11 @@
 <?php
 
-namespace App\Services;
+namespace App\Clients;
 
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
+use App\Dto\ArticleDto;
+use App\Dto\SourceDto;
 
 class NewsApi extends DataSource
 {
@@ -53,7 +55,7 @@ class NewsApi extends DataSource
         $sources = $this->fetchSources();
         // Normalize sources data for model validation
         $normalizedSources = $this->normalizeSources($sources);
-        $result = $this->saveSources($normalizedSources);
+        $result = $this->sourceService->saveSources($normalizedSources);
         Log::info('Rows affected: ' . $result['rowsAffected']);
     }
 
@@ -102,7 +104,7 @@ class NewsApi extends DataSource
         });
         // Normalize articles data for model validation
         $normalizedArticles = $this->normalizeArticles($filteredArticles, $category);
-        return $this->saveArticles($normalizedArticles);
+        return $this->articleService->saveArticles($normalizedArticles);
     }
 
     /**
@@ -166,14 +168,14 @@ class NewsApi extends DataSource
     private function normalizeSources(array $sources): array
     {
         return array_map(function ($source) {
-            return [
-                'uid' => $source['id'],
-                'name' => $source['name'],
-                'description' => $source['description'],
-                'url' => $source['url'],
-                'language' => $source['language'],
-                'country' => $source['country'],
-            ];
+            return new SourceDto(
+                uid: $source['id'],
+                name: $source['name'],
+                description: $source['description'],
+                url: $source['url'],
+                language: $source['language'],
+                country: $source['country'],
+            );
         }, $sources);
     }
 
@@ -188,20 +190,20 @@ class NewsApi extends DataSource
     {
         return array_map(function ($article) use ($category) {
             // Map source id to the local source id
-            $source_id = $this->mapSourceId($article['source']['id']);
+            $source_id = $this->sourceService->mapSourceId($article['source']['id']);
             // Skip articles with unknown source id
             if (is_null($source_id)) return $source_id;
-            return [
-                'title' => $article['title'],
-                'source_id' => $source_id,
-                'category' => $category,
-                'author' => $article['author'] ?? 'Unknown',
-                'description' => $article['description'],
-                'content' => $article['content'],
-                'url' => $article['url'],
-                'urlToImage' => $article['urlToImage'],
-                'publishedAt' => $article['publishedAt'],
-            ];
+            return new ArticleDto(
+                title: $article['title'],
+                source_id: $source_id,
+                category: $category,
+                url: $article['url'],
+                publishedAt: $article['publishedAt'],
+                author: $article['author'] ?? 'Unknown',
+                description: $article['description'],
+                content: $article['content'],
+                urlToImage: $article['urlToImage'],
+            );
         }, $articles);
     }
 }

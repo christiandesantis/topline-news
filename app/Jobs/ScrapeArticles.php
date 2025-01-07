@@ -2,7 +2,7 @@
 
 namespace App\Jobs;
 
-use \App\Services\NewsApi;
+use \App\Clients\NewsApi;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Queue\Queueable;
 

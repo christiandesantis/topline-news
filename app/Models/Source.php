@@ -28,10 +28,10 @@ class Source extends Model
         $validator = Validator::make(['sources' => $sources], [
             'sources.*.uid' => 'required|string|unique:sources,uid',
             'sources.*.name' => 'required|string',
-            'sources.*.description' => 'nullable|string',
-            'sources.*.url' => 'nullable|url',
             'sources.*.language' => 'required|string',
             'sources.*.country' => 'required|string',
+            'sources.*.description' => 'nullable|string',
+            'sources.*.url' => 'nullable|url',
         ]);
 
         if ($validator->fails()) {
