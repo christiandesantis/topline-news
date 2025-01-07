@@ -4,6 +4,7 @@
     "scripts": {
         "build": "tsc && vite build && vite build --ssr",
         "dev": "vite",
+        "dev:host": "node -e \"process.env.VITE_HMR_HOST = process.argv[1]; require('child_process').execSync('vite', { stdio: 'inherit' });\"",
         "lint": "eslint resources/js --ext .js,.jsx,.ts,.tsx --ignore-path .gitignore --fix"
     },
     "devDependencies": {
