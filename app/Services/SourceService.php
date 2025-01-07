@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Source;
+use App\Dto\SourceDto;
 
 class SourceService
 {
@@ -19,11 +20,19 @@ class SourceService
         $rowsAffected = 0;
 
         foreach ($sources as $source) {
-            Source::updateOrCreate(['uid' => $source['uid']], $source);
+            $this->upsert($source);
             $rowsAffected++;
         }
 
         return ['rowsAffected' => $rowsAffected];
+    }
+
+    public function upsert(SourceDto $sourceDto): Source
+    {
+        return Source::updateOrCreate(
+            ['uid' => $sourceDto->uid],
+            $sourceDto
+        );
     }
 
     /**

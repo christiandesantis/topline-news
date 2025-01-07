@@ -43,12 +43,12 @@ class Article extends Model
                     }
                 },
             ],
+            'articles.*.url' => 'required|string',
+            'articles.*.publishedAt' => 'required|date',
             'articles.*.author' => 'nullable|string',
             'articles.*.description' => 'nullable|string',
             'articles.*.content' => 'nullable|string',
-            'articles.*.url' => 'required|string',
             'articles.*.urlToImage' => 'nullable|string',
-            'articles.*.publishedAt' => 'required|date',
         ]);
 
         if ($validator->fails()) {
