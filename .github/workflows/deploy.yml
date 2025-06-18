@@ -70,22 +70,26 @@ jobs:
       - name: Create work directory
         run: |
           ssh $SSH_USER@$SSH_HOST "
-            mkdir -p $SSH_DIR/${GITHUB_REPOSITORY##*/} &&
-            sudo chown -R $SSH_USER:$SSH_USER $SSH_DIR/${GITHUB_REPOSITORY##*/} || true
+            mkdir -p $SSH_DIR/${GITHUB_REPOSITORY##*/}
           "
 
-      # Step 4: Clean up build directories on server
-      - name: Clean up build directories
+      # Step 4: Clean up build directories and fix permissions
+      - name: Clean up build directories and fix permissions
         run: |
           ssh $SSH_USER@$SSH_HOST "
             cd $SSH_DIR/${GITHUB_REPOSITORY##*/} &&
-            sudo rm -rf bootstrap/ssr public/build || true
+            # Force remove build directories with sudo
+            sudo rm -rf bootstrap/ssr public/build || true &&
+            # Ensure the user owns the entire directory
+            sudo chown -R $SSH_USER:$SSH_USER . || true
           "
 
       # Step 5: Transfer repository files to server
       - name: Transfer files to server
         run: |
           rsync -avz --delete \
+            --exclude='bootstrap/ssr' \
+            --exclude='public/build' \
             -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" \
             ./ $SSH_USER@$SSH_HOST:$SSH_DIR/${GITHUB_REPOSITORY##*/}/
 
