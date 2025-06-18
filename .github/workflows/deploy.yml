@@ -121,7 +121,14 @@ jobs:
             sed -i 's|MEILISEARCH_HOST=.*|MEILISEARCH_HOST=$MEILISEARCH_HOST|' .env
           "
 
-      # Step 6: Deploy application
+      # Step 6: Ensure correct permissions on server
+      - name: Ensure correct permissions on server
+        run: |
+          ssh $SSH_USER@$SSH_HOST "
+            sudo chown -R $SSH_USER:$SSH_USER $SSH_DIR/${GITHUB_REPOSITORY##*/} || true
+          "
+
+      # Step 7: Deploy application
       - name: Deploy application containers
         run: |
           ssh $SSH_USER@$SSH_HOST "
@@ -130,6 +137,6 @@ jobs:
             COMPOSE_PROJECT_NAME=topline-news-prod docker compose -f docker-compose.prod.yml up -d --build
           "
 
-      # Step 7: Cleanup SSH keys
+      # Step 8: Cleanup SSH keys
       - name: Cleanup
         run: rm -rf ~/.ssh
