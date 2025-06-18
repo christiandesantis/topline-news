@@ -74,14 +74,22 @@ jobs:
             sudo chown -R $SSH_USER:$SSH_USER $SSH_DIR/${GITHUB_REPOSITORY##*/} || true
           "
 
-      # Step 4: Transfer repository files to server
+      # Step 4: Clean up build directories on server
+      - name: Clean up build directories
+        run: |
+          ssh $SSH_USER@$SSH_HOST "
+            cd $SSH_DIR/${GITHUB_REPOSITORY##*/} &&
+            sudo rm -rf bootstrap/ssr public/build || true
+          "
+
+      # Step 5: Transfer repository files to server
       - name: Transfer files to server
         run: |
           rsync -avz --delete \
             -e "ssh -i ~/.ssh/id_rsa -o StrictHostKeyChecking=no" \
             ./ $SSH_USER@$SSH_HOST:$SSH_DIR/${GITHUB_REPOSITORY##*/}/
 
-      # Step 5: Configure environment
+      # Step 6: Configure environment file
       - name: Configure environment file
         run: |
           ssh $SSH_USER@$SSH_HOST "
@@ -122,7 +130,7 @@ jobs:
             sed -i 's|MEILISEARCH_HOST=.*|MEILISEARCH_HOST=$MEILISEARCH_HOST|' .env
           "
 
-      # Step 6: Deploy application
+      # Step 7: Deploy application containers
       - name: Deploy application containers
         run: |
           ssh $SSH_USER@$SSH_HOST "
@@ -131,6 +139,6 @@ jobs:
             COMPOSE_PROJECT_NAME=topline-news-prod docker compose -f docker-compose.prod.yml up -d --build
           "
 
-      # Step 7: Cleanup SSH keys
+      # Step 8: Cleanup SSH keys SSH keys
       - name: Cleanup
         run: rm -rf ~/.ssh
