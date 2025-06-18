@@ -1,5 +1,6 @@
 services:
   php:
+    restart: unless-stopped
     build:
       context: ./docker/php
       dockerfile: Dockerfile
@@ -23,6 +24,7 @@ services:
       "
 
   nginx:
+    restart: unless-stopped
     build:
       context: ./docker/nginx
       dockerfile: Dockerfile
@@ -37,6 +39,7 @@ services:
       - topline-network
 
   mysql:
+    restart: unless-stopped
     image: "mysql/mysql-server:8.0"
     ports:
       - "${FORWARD_DB_PORT:-3306}:3306"
@@ -61,6 +64,7 @@ services:
       timeout: 5s
 
   redis:
+    restart: unless-stopped
     image: "redis:alpine"
     ports:
       - "${FORWARD_REDIS_PORT:-6379}:6379"
@@ -77,6 +81,7 @@ services:
       timeout: 5s
 
   meilisearch:
+    restart: unless-stopped
     image: "getmeili/meilisearch:latest"
     ports:
       - "${FORWARD_MEILISEARCH_PORT:-7700}:7700"
@@ -97,6 +102,7 @@ services:
       timeout: 5s
 
   mailpit:
+    restart: unless-stopped
     image: "axllent/mailpit:latest"
     ports:
       - "${FORWARD_MAILPIT_PORT:-1025}:1025"
